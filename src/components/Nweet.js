@@ -2,6 +2,8 @@ import { dbService } from "fbase";
 import React, { useState } from "react";
 // eslint-disable-next-line
 import { doc, deleteDoc, updateDoc } from "firebase/firestore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrash, faPencilAlt } from "@fortawesome/free-solid-svg-icons";
 
 const Nweet = ({nweetObj, isOwner}) => {
   const [editing, setEditing] = useState(false); 
@@ -28,33 +30,42 @@ const Nweet = ({nweetObj, isOwner}) => {
   }
 
   return (
-  <div>
+    <div className="nweet">
     {editing ? (
       <>
       {isOwner && (
       <>
-      <form onSubmit={onSubmit}>
+       <form onSubmit={onSubmit} className="container nweetEdit">
         <input 
         type="text" 
         placeholder="오늘의 한줄" 
         value={newNweet} 
         required
+        autoFocus
         onChange={onChange}
+        className="formInput"
         />
-        <input type="submit" value="업데이트" />
+        <input type="submit" value="Update Nweet" className="formBtn" />
       </form>
-      <button onClick={toggleEditing}>취소</button>
+      <span onClick={toggleEditing} className="formBtn cancelBtn">
+            Cancel
+          </span>
       </>
       )}
       </>
       ) : (
     <>
     <h4>{nweetObj.text}</h4>
+    {nweetObj.attachmentUrl && <img src={nweetObj.attachmentUrl} />}
     {isOwner && (
-    <>
-    <button onClick={onDeleteClick}>삭제</button>
-    <button onClick={toggleEditing}>수정</button>
-    </>
+    <div className="nweet__actions">
+      <span onClick={onDeleteClick}>
+                <FontAwesomeIcon icon={faTrash} />
+              </span>
+              <span onClick={toggleEditing}>
+                <FontAwesomeIcon icon={faPencilAlt} />
+              </span>
+            </div>
     )}
     </>
        )}

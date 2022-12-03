@@ -1,3 +1,4 @@
+import React from "react";
 // eslint-disable-next-line
 import { collection } from "firebase/firestore";
 import { getAuth, signOut } from "firebase/auth";
@@ -34,18 +35,30 @@ const Profile = ({refreshUser ,userObj}) => {
     };
 
     return (
-    <>
-    <form onSubmit={onSubmit}>
+      <div className="container">
+      <form onSubmit={onSubmit} className="profileForm">
       <input 
       onChange={onChange}
       type="text" 
+      autoFocus
       placeholder="프로필 수정"
       value={newDisplayName}
+      className="formInput"
+        />
+        <input
+          type="submit"
+          value="Update Profile"
+          className="formBtn"
+          style={{
+            marginTop: 10,
+          }}
       />
-      <input type="submit" value="업데이트" />
+      
       </form>
-      <button onClick={onLogOutClick}>로그아웃</button>
-      </>
+      <span className="formBtn cancelBtn logOut" onClick={onLogOutClick}>
+        Log Out
+      </span>
+    </div>
       );
     };
 

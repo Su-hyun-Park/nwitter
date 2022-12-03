@@ -1,6 +1,7 @@
-import { useEffect, useState } from "react";
-import AppRouter from "components/Router";
-import { authService } from "fbase";
+import React, { useState, useEffect } from "react";
+import AppRouter from "./Router";
+import { authService } from "/fbase";
+
 
 
 function App() {
@@ -15,7 +16,9 @@ function App() {
     if (user) {
       //setIsLoggedIn(true);
       setUserObj(user);
-    } 
+    } else {
+      setUserObj(null);
+    }
     setInit(true);
   });
   }, []);
